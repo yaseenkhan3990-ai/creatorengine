@@ -1,0 +1,150 @@
+<%- include('partials/head') %>
+<%
+  const trendLines = dashboard.trendLines || {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    keywordDemand: "24,118 85,89 146,77 207,64 268,42 329,35 390,24",
+    trendingVelocity: "24,138 85,128 146,101 207,88 268,66 329,48 390,32",
+    contentCompetition: "24,72 85,82 146,76 207,96 268,104 329,118 390,122"
+  };
+  const keywordSignals = dashboard.keywordSignals || [];
+  const runningContent = dashboard.runningContent || [];
+%>
+<main class="shell">
+  <%- include('partials/nav', { page }) %>
+  <section class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Creator command center</p>
+        <h1>Predict stronger hooks, titles, tags, and posting windows before you publish.</h1>
+      </div>
+      <a class="primary-action" href="/upload">Analyze New Video</a>
+    </header>
+
+    <section class="hero-panel">
+      <div class="hero-bg-icons" aria-hidden="true">
+        <svg class="hero-platform-icon hero-youtube" viewBox="0 0 24 24">
+          <path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z"></path>
+        </svg>
+        <svg class="hero-platform-icon hero-instagram" viewBox="0 0 24 24">
+          <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm8.2 2H8C5.8 4 4 5.8 4 8v8c0 2.2 1.8 4 4 4h8c2.2 0 4-1.8 4-4V8c0-2.2-1.8-4-4-4zm-4 3.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2zM17.2 6.5a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"></path>
+        </svg>
+        <svg class="hero-platform-icon hero-facebook" viewBox="0 0 24 24">
+          <path d="M14 8.2V6.8c0-.7.5-.9 1-.9h2.2V2.2L14.1 2C10.7 2 9.9 4.4 9.9 6v2.2H7v3.9h2.9V22H14v-9.9h3.1l.5-3.9H14z"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Today recommendation</p>
+        <h2>Short-form transformation clips have the best chance to cross one million views.</h2>
+        <p>Use a result-first opening, pair it with a fast audio bed, and build separate titles for YouTube, Instagram, Facebook, and TikTok.</p>
+      </div>
+      <div class="hero-meter">
+        <span>Viral fit</span>
+        <strong>94</strong>
+        <small>High opportunity</small>
+      </div>
+    </section>
+
+    <section class="stat-grid">
+      <% dashboard.stats.forEach((stat) => { %>
+        <article class="stat-card">
+          <span><%= stat.label %></span>
+          <strong><%= stat.value %></strong>
+          <small><%= stat.trend %></small>
+        </article>
+      <% }) %>
+    </section>
+
+    <section class="trend-dashboard">
+      <article class="panel trend-line-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Keyword and trend momentum</h2>
+            <span>Live-style signal graph</span>
+          </div>
+          <div class="chart-legend">
+            <span><i class="red-dot"></i>Keyword demand</span>
+            <span><i class="black-dot"></i>Trending videos</span>
+            <span><i class="gray-dot"></i>Competition</span>
+          </div>
+        </div>
+        <div class="line-chart">
+          <svg viewBox="0 0 420 170" role="img" aria-label="Line graph showing keyword demand, trending videos, and content competition">
+            <line x1="24" y1="24" x2="24" y2="138"></line>
+            <line x1="24" y1="138" x2="400" y2="138"></line>
+            <path class="grid-line" d="M24 102H400"></path>
+            <path class="grid-line" d="M24 66H400"></path>
+            <polyline class="line-red" points="<%= trendLines.keywordDemand %>"></polyline>
+            <polyline class="line-black" points="<%= trendLines.trendingVelocity %>"></polyline>
+            <polyline class="line-gray" points="<%= trendLines.contentCompetition %>"></polyline>
+          </svg>
+          <div class="chart-labels">
+            <% trendLines.labels.forEach((label) => { %>
+              <span><%= label %></span>
+            <% }) %>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Keywords rising now</h2>
+          <span>AI search fit</span>
+        </div>
+        <% keywordSignals.forEach((item) => { %>
+          <div class="keyword-row">
+            <div>
+              <strong><%= item.keyword %></strong>
+              <small><%= item.change %> weekly lift</small>
+            </div>
+            <span><%= item.score %></span>
+          </div>
+        <% }) %>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Content already running</h2>
+          <span>Trending videos</span>
+        </div>
+        <% runningContent.forEach((item) => { %>
+          <div class="running-row">
+            <strong><%= item.title %></strong>
+            <span><%= item.platform %></span>
+            <small><%= item.velocity %></small>
+          </div>
+        <% }) %>
+      </article>
+    </section>
+
+    <section class="two-column">
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Million-view patterns</h2>
+          <span>Live playbook</span>
+        </div>
+        <ul class="clean-list">
+          <% dashboard.viralPatterns.forEach((pattern) => { %>
+            <li><%= pattern %></li>
+          <% }) %>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Best content types</h2>
+          <span>Reach forecast</span>
+        </div>
+        <% dashboard.contentTypes.forEach((item) => { %>
+          <div class="score-row">
+            <div>
+              <strong><%= item.name %></strong>
+              <small><%= item.reach %></small>
+            </div>
+            <span><%= item.score %></span>
+          </div>
+        <% }) %>
+      </article>
+    </section>
+  </section>
+</main>
+<%- include('partials/footer') %>

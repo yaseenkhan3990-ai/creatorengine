@@ -1,0 +1,184 @@
+<%- include('partials/head') %>
+<main class="shell">
+  <%- include('partials/nav', { page }) %>
+  <section class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">AI Strategy Ready</p>
+        <h1>Auto-filled reel content for <%= strategy.topic %></h1>
+      </div>
+      <a class="secondary-action" href="/upload">Analyze Another Video</a>
+    </header>
+
+    <section class="studio-hero">
+      <div>
+        <span class="pill"><%= upload.file.originalName %></span>
+        <h2><%= strategy.millionViewChance %> million-view potential</h2>
+        <p>AI analyzed the uploaded reel and auto-filled titles, descriptions, tags, hashtags, hooks, and content ideas for <strong><%= strategy.selectedPlatformCount %></strong> selected platform(s).</p>
+        <% if (strategy.aiNotice) { %>
+          <p class="ai-notice"><%= strategy.aiProvider %> · <%= strategy.aiModel %> · <%= strategy.aiNotice %></p>
+        <% } %>
+      </div>
+      <div class="hero-meter">
+        <span>AI Score</span>
+        <strong><%= strategy.averageReachScore %></strong>
+        <small>Selected platforms</small>
+      </div>
+    </section>
+
+    <section class="analytics-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <h2>Current media fit</h2>
+          <span>AI graph</span>
+        </div>
+        <div class="bar-chart">
+          <% strategy.marketGraph.forEach((bar) => { %>
+            <div class="bar-row">
+              <span><%= bar.label %></span>
+              <div><i style="width:<%= bar.value %>%"></i></div>
+              <strong><%= bar.value %></strong>
+            </div>
+          <% }) %>
+        </div>
+      </article>
+
+      <article class="panel visual-panel">
+        <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=1200&q=80" alt="Social media analytics screens">
+        <div>
+          <strong>AI content studio</strong>
+          <span>Platform titles, captions, reach fit, tags, hashtags, hooks, and audio direction in one workspace.</span>
+        </div>
+      </article>
+    </section>
+
+    <% strategy.platformStrategies.forEach((item) => { %>
+      <section class="platform-result">
+        <div class="platform-header">
+          <span><%= item.platform.shortLabel %></span>
+          <div>
+            <h2><%= item.platform.label %> package</h2>
+            <p><%= item.platform.hook %></p>
+          </div>
+          <strong><%= item.reachScore %></strong>
+        </div>
+
+        <div class="platform-grid">
+          <article class="panel double autofill-panel">
+            <div class="panel-heading">
+              <h2>Auto-filled content fields</h2>
+              <span>Edit and copy</span>
+            </div>
+            <label>
+              <span>Title</span>
+              <input value="<%= item.autoFill.title %>">
+            </label>
+            <label>
+              <span>Description</span>
+              <textarea rows="4"><%= item.autoFill.description %></textarea>
+            </label>
+            <label>
+              <span>Tags</span>
+              <textarea rows="3"><%= item.autoFill.tags %></textarea>
+            </label>
+            <label>
+              <span>Hashtags</span>
+              <textarea rows="3"><%= item.autoFill.hashtags %></textarea>
+            </label>
+            <button type="button" class="copy-link wide-copy" data-copy-fields>Copy all auto-filled content</button>
+          </article>
+
+          <article class="panel autofill-panel">
+            <div class="panel-heading">
+              <h2>Reel creator idea</h2>
+              <button type="button" class="copy-link" data-copy="<%= item.autoFill.reelIdea %>">Copy</button>
+            </div>
+            <textarea rows="6"><%= item.autoFill.reelIdea %></textarea>
+          </article>
+
+          <article class="panel">
+            <h2>Tags</h2>
+            <div class="chip-cloud">
+              <% item.tags.forEach((tag) => { %>
+                <span><%= tag %></span>
+              <% }) %>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h2>Hashtags</h2>
+            <div class="chip-cloud accent">
+              <% item.hashtags.forEach((tag) => { %>
+                <span><%= tag %></span>
+              <% }) %>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h2>Performance</h2>
+              <span>Score</span>
+            </div>
+            <div class="mini-bars">
+              <% item.chart.forEach((metric) => { %>
+                <div>
+                  <span><%= metric.label %></span>
+                  <i style="height:<%= metric.value %>%"></i>
+                  <strong><%= metric.value %></strong>
+                </div>
+              <% }) %>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h2>Viral audio</h2>
+            <div class="audio-card">
+              <strong><%= item.audio.name %></strong>
+              <span><%= item.audio.vibe %></span>
+              <small><%= item.audio.bpm %> BPM - <%= item.audio.lift %> lift</small>
+            </div>
+          </article>
+        </div>
+
+        <section class="two-column">
+          <article class="panel">
+            <div class="panel-heading">
+              <h2>Reel hooks</h2>
+              <span>First 2 seconds</span>
+            </div>
+            <ul class="clean-list">
+              <% item.hooks.forEach((hook) => { %>
+                <li><%= hook %></li>
+              <% }) %>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h2>Reel structure</h2>
+              <span>Shot plan</span>
+            </div>
+            <ul class="clean-list">
+              <% item.contentPlan.forEach((plan) => { %>
+                <li><%= plan %></li>
+              <% }) %>
+            </ul>
+          </article>
+        </section>
+      </section>
+    <% }) %>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <h2>Final publishing checklist</h2>
+        <span>Before post</span>
+      </div>
+      <ul class="clean-list">
+        <% strategy.checklist.forEach((item) => { %>
+          <li><%= item %></li>
+        <% }) %>
+      </ul>
+    </section>
+  </section>
+</main>
+<%- include('partials/footer') %>
