@@ -9,7 +9,10 @@
   --red: #ff0033;
   --red-dark: #cc0029;
   --red-soft: #fff0f3;
+  --sky: #0ea5e9;
+  --mint: #10b981;
   --shadow: 0 18px 45px rgba(15, 15, 15, 0.08);
+  --strong-shadow: 0 26px 70px rgba(15, 15, 15, 0.16);
 }
 
 * {
@@ -20,7 +23,9 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  background: var(--paper);
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 32rem),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 46%, #f3f4f6 100%);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -67,6 +72,13 @@ textarea {
   color: #fff;
   font-weight: 950;
   background: var(--red);
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 .brand strong,
@@ -188,14 +200,14 @@ h2 {
 }
 
 .primary-action {
-  color:black;
-  /* background: var(--red); */
-  border: 1px solid;
-  /* box-shadow: 0 10px 24px rgba(255, 0, 51, 0.22); */
+  color: #fff;
+  background: red;
+  border: 1px solid rgba(255, 0, 51, 0.22);
+  /* box-shadow: 0 16px 28px rgba(255, 0, 51, 0.18); */
 }
 
 .primary-action:hover {
-  background: var(--red-dark);
+  background: black;
 }
 
 .primary-action:disabled {
@@ -339,7 +351,7 @@ h2 {
 .panel,
 .stat-card,
 .form-panel,
-.dropzone,
+.media-uploader,
 .video-preview {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -444,8 +456,8 @@ h2 {
 
 .upload-layout {
   display: grid;
-  grid-template-columns: minmax(340px, 0.85fr) minmax(460px, 1.15fr);
-  gap: 20px;
+  grid-template-columns: minmax(360px, 0.95fr) minmax(460px, 1.05fr);
+  gap: 24px;
   align-items: start;
 }
 
@@ -454,26 +466,102 @@ h2 {
   gap: 16px;
 }
 
-.dropzone {
+.media-uploader {
+  position: relative;
+  isolation: isolate;
   display: grid;
-  place-items: center;
-  min-height: 250px;
-  padding: 26px;
+  min-height: clamp(300px, 40vw, 465px);
+  overflow: hidden;
+  padding: 28px;
   text-align: center;
-  border: 2px dashed #d0d0d0;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.58);
   cursor: pointer;
+  box-shadow: var(--strong-shadow);
 }
 
-.dropzone:hover {
-  border-color: var(--red);
-  background: var(--red-soft);
+.media-uploader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(15, 15, 15, 0.1), rgba(15, 15, 15, 0.82)),
+    url("https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1400&q=80");
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.02);
+  transition: transform 180ms ease;
 }
 
-.dropzone input {
+.media-uploader::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  z-index: -1;
+  border: 1px dashed rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.media-uploader:hover::before {
+  transform: scale(1.05);
+}
+
+.media-uploader input {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
+}
+
+.media-uploader video {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0f0f0f;
+}
+
+.media-uploader.is-empty video {
+  display: none;
+}
+
+.media-uploader:not(.is-empty)::before,
+.media-uploader:not(.is-empty)::after,
+.media-uploader:not(.is-empty) .media-art,
+.media-uploader:not(.is-empty) .upload-content {
+  display: none;
+}
+
+.media-art {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  width: min(44%, 260px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, transparent, rgba(15, 15, 15, 0.38)),
+    url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+}
+
+.upload-content {
+  align-self: center;
+  justify-self: start;
+  display: grid;
+  justify-items: start;
+  max-width: 360px;
+  padding: 28px;
+  text-align: left;
 }
 
 .upload-icon {
@@ -484,17 +572,45 @@ h2 {
   color: #fff;
   font-size: 2rem;
   font-weight: 900;
-  background: var(--red);
+  background: red;
   border-radius: 50%;
+  /* box-shadow: 0 18px 36px rgba(255, 0, 51, 0.26); */
 }
 
-.dropzone strong {
+.media-uploader strong {
   margin-top: 16px;
-  font-size: 1.3rem;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  line-height: 1;
 }
 
-.dropzone small {
+.media-uploader small {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 750;
+}
+
+.preview-note {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(229, 231, 235, 0.86);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.preview-note strong,
+.preview-note span {
+  display: block;
+}
+
+.preview-note span {
+  max-width: 340px;
   color: var(--muted);
+  text-align: right;
 }
 
 .video-preview {
@@ -539,6 +655,11 @@ h2 {
 .form-panel {
   display: grid;
   gap: 18px;
+  /* background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.9)),
+    url("https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&w=1000&q=80");
+  background-position: center;
+  background-size: cover; */
 }
 
 .section-label span {
@@ -569,8 +690,9 @@ h2 {
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.88);
   cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .platform-option input {
@@ -603,10 +725,15 @@ h2 {
 .platform-option:has(input:checked) {
   border-color: var(--red);
   background: var(--red-soft);
+  box-shadow: 0 12px 26px rgba(255, 0, 51, 0.1);
 }
 
 .platform-option:has(input:checked) span {
   background: var(--red);
+}
+
+.platform-option:hover {
+  transform: translateY(-2px);
 }
 
 .field-grid {
@@ -619,7 +746,8 @@ h2 {
   grid-column: 1 / -1;
 }
 
-label span {
+.field-grid label span,
+.autofill-panel label span {
   display: block;
   margin-bottom: 8px;
   color: var(--muted);
@@ -682,7 +810,7 @@ textarea:focus {
   width: 42px;
   height: 42px;
   color: #fff;
-  background: var(--black);
+  background: black;
   border-radius: 8px;
 }
 
@@ -1120,6 +1248,19 @@ textarea:focus {
   .sidebar {
     position: static;
     height: auto;
+    padding: 18px;
+  }
+
+  .brand {
+    margin-bottom: 16px;
+  }
+
+  .nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .nav a {
+    text-align: center;
   }
 
   .platform-checks,
@@ -1132,11 +1273,67 @@ textarea:focus {
 @media (max-width: 640px) {
   .page,
   .sidebar {
-    padding: 18px;
+    padding: 16px;
+  }
+
+  .page {
+    overflow: hidden;
   }
 
   .topbar {
     display: grid;
+  }
+
+  .sidebar-card {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
+    padding: 11px 12px;
+    white-space: nowrap;
+  }
+
+  .upload-layout {
+    gap: 16px;
+  }
+
+  .media-uploader {
+    min-height: 460px;
+    padding: 18px;
+  }
+
+  .media-art {
+    right: 16px;
+    bottom: 16px;
+    width: 38%;
+    opacity: 0.72;
+  }
+
+  .upload-content {
+    max-width: 290px;
+    padding: 18px;
+  }
+
+  .upload-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .preview-note {
+    display: grid;
+  }
+
+  .preview-note span {
+    max-width: none;
+    text-align: left;
   }
 
   .stat-grid,
@@ -1157,5 +1354,29 @@ textarea:focus {
 
   h1 {
     font-size: 2.1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand small {
+    display: none;
+  }
+
+  .media-uploader {
+    min-height: 390px;
+  }
+
+  .media-art {
+    display: none;
+  }
+
+  .upload-content {
+    justify-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .platform-option {
+    min-height: 88px;
   }
 }

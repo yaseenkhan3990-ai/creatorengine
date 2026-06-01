@@ -15,19 +15,19 @@
 
     <form class="upload-layout" action="/analyze" method="post" enctype="multipart/form-data" data-upload-form>
       <section class="preview-column">
-        <label class="dropzone" for="video">
+        <div class="media-uploader is-empty" id="videoPreviewShell">
           <input id="video" name="video" type="file" accept="video/*" required>
-          <span class="upload-icon">+</span>
-          <strong>Select video, short, or reel</strong>
-          <small id="fileName">Choose MP4, MOV, or WEBM content</small>
-        </label>
-
-        <div class="video-preview is-empty" id="videoPreviewShell">
           <video id="videoPreview" controls muted playsinline></video>
-          <div class="preview-empty">
-            <strong>No video selected</strong>
-            <span>Your preview will appear here after selection.</span>
-          </div>
+          <span class="media-art" aria-hidden="true"></span>
+          <label class="upload-content" for="video">
+            <span class="upload-icon">+</span>
+            <strong>Select video, short, or reel</strong>
+            <small id="fileName">Choose MP4, MOV, or WEBM content</small>
+          </label>
+        </div>
+        <div class="preview-note">
+          <strong>Preview appears here</strong>
+          <span>Pick a file and this panel becomes your playable reel preview.</span>
         </div>
       </section>
 
