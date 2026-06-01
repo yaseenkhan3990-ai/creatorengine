@@ -216,22 +216,20 @@ h2 {
 .studio-hero,
 .hero-panel,
 .result-hero {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 210px;
-  gap: 24px;
-  align-items: center;
-  margin-bottom: 22px;
-  padding: 28px;
-  color: #fff;
-  background:
-    linear-gradient(90deg, rgba(15, 15, 15, 0.96), rgba(15, 15, 15, 0.72)),
-    url("https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1600&q=80");
-  background-position: center;
-  background-size: cover;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
+      position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 210px;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 22px;
+    padding: 28px;
+    color: #fff;
+    background: linear-gradient(90deg, rgba(15, 15, 15, 0.96), rgba(15, 15, 15, 0.72)), url(https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=1600&q=80);
+    background-position: left;
+    /* background-size: cover; */
+    border-radius: 8px;
+    box-shadow: var(--shadow);
 }
 
 .hero-panel > div:not(.hero-bg-icons),
@@ -260,27 +258,28 @@ h2 {
   width: 176px;
   height: 176px;
   top: 20px;
-  left: 96px;
+  left: 60px;
   fill: #ff0033;
   opacity: 0.86;
 }
 
 .hero-instagram {
-  width: 134px;
-  height: 134px;
-  top: 68px;
-  right: 12px;
-  fill: #e4405f;
-  opacity: 0.9;
+      width: 134px;
+    height: 134px;
+    top: 68px;
+    /* right: 13px; */
+    fill: #e4405f;
+    opacity: 0.9;
+    left: -185px;
 }
 
 .hero-facebook {
-  width: 128px;
-  height: 128px;
-  left: 0;
-  bottom: 0;
-  fill: #1877f2;
-  opacity: 0.92;
+     width: 128px;
+    height: 148px;
+    left: -45px;
+    bottom: 65px;
+    fill: #1877f2;
+    opacity: 0.92;
 }
 
 .studio-hero p,
