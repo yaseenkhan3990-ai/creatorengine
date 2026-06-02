@@ -23,9 +23,9 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  background:
+  /* background:
     radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 32rem),
-    linear-gradient(180deg, #ffffff 0%, var(--paper) 46%, #f3f4f6 100%);
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 46%, #f3f4f6 100%); */
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -54,6 +54,24 @@ textarea {
   padding: 24px 18px;
   color: #fff;
   background: var(--black);
+}
+
+.sidebar,
+.topbar,
+.hero-panel,
+.studio-hero,
+.result-hero,
+.media-uploader,
+.preview-note,
+.form-panel,
+.panel,
+.stat-card,
+.platform-header,
+.hero-platform-icon,
+.media-logo,
+.bar-row i,
+.mini-bars i {
+  will-change: transform, opacity;
 }
 
 .brand {
@@ -920,6 +938,17 @@ textarea:focus {
 
   to {
     transform: translateX(330%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
